@@ -1,5 +1,5 @@
 # Snake-2
-Snake in p5
+Snake in p5 coded from scratch
 
 Play the game here: https://officialpranav.github.io/Snake-2/
 
