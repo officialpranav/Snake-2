@@ -16,7 +16,7 @@ function setup() {
 
 function draw() {
   notMoved = true;
-  background(220);
+  background(22);
   let snakeCoords = snake.getBodyCoords();
   fill("black");
   text("Length: " + score, 10,10);
