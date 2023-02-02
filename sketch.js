@@ -1,25 +1,31 @@
 //import * as Snake from "snake.js";
 
+let resetButton;
+
 function setup() {
-  createCanvas(900, 900);
+  createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
   noStroke();
-  textSize(10);
+  textSize(25);
   
   notMoved = true;
-  snake = new Snake(50, 50, 5, true);
+  snake = new Snake(70, floor((70/window.innerWidth)*window.innerHeight), 5, true);
   fruitCoords = [floor(random(0, snake.getBounds()[0])), floor(random(0, snake.getBounds()[1]))];
   snakeW = width/snake.getBounds()[0];
   snakeH = height/snake.getBounds()[1];
   score = 5;
+
+  resetButton = createButton("Play Again");
+  resetButton.position(10,40);
+  resetButton.mousePressed(reset);
 }
 
 function draw() {
   notMoved = true;
   background(22);
   let snakeCoords = snake.getBodyCoords();
-  fill("black");
-  text("Length: " + score, 10,10);
+  fill("white");
+  text("Length: " + score, 10,25);
 
   fill("yellow");
   rect(fruitCoords[0]*snakeW, fruitCoords[1]*snakeH, snakeW, snakeH);
@@ -32,21 +38,21 @@ function draw() {
   if(snakeCoords[0][0]==fruitCoords[0] && snakeCoords[0][1]==fruitCoords[1]){
     if(snake.addBodyAndMove(snake.snakeDirection)!=1){
       textSize(30);
-      text("GAME OVER", width-50, height)
+      text("GAME OVER", width-50, height);
+      textSize(25);
       noLoop();
     }
     updateFruitLocation();
     score++;
     console.log("true!");
   } else {
-    if(snake.move(snake.snakeDirection)!=1){
+    if(snake.move(snake.snakeDirection)!= 1){
       textSize(100);
-      text("GAME OVER", (width/2)-300, height/2)
+      text("GAME OVER", (width/2)-300, height/2);
+      textSize(25);
       noLoop();
     }
   }
-  console.clear();
-  snake.drawGame();
 }
 
 function keyPressed(){
@@ -74,4 +80,14 @@ function keyPressed(){
 
 function updateFruitLocation(){
   fruitCoords = [floor(random(0, snake.getBounds()[0])), floor(random(0, snake.getBounds()[1]))];
+}
+
+function reset(){
+  notMoved = true;
+  snake = new Snake(70, floor((70/window.innerWidth)*window.innerHeight), 5, true);
+  fruitCoords = [floor(random(0, snake.getBounds()[0])), floor(random(0, snake.getBounds()[1]))];
+  snakeW = width/snake.getBounds()[0];
+  snakeH = height/snake.getBounds()[1];
+  score = 5;
+  loop();
 }
